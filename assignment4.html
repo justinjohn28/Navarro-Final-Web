@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+  <style>
+    .container{
+      transform: scale(0.8);
+      width: 980px;
+    }
+
+    p{
+      transform: scale(1);
+      width: 100%;
+    }
+
+  </style>
+<head>
+<link rel="stylesheet" href="first.css">
+<link rel="stylesheet" href="1.css">
+</head>
+<body onload="initcart()">
+  <div class="return"><button onclick="myfunction()" class="return">
+    <b><a href="frontpage.html" style="text-decoration: none;">Return Home</a></b>
+  </button></div>
+<div class="border">
+  <div class="but">
+  <div class="container">
+    <h2>Payroll</h2>
+    <br>
+  <div class="input_box name">
+<label for="itemdesc">Employee name:</label>   
+<input id="itemdesc" name="itemdesc" type="text" onfocus="this.value=''" value="Juan Del Cruz"></input> 
+<label for="qty">Days worked:</label>
+<input id="qty" name="qty" type="number" onfocus="this.value=''" value="Juan Del Cruz" oninput="computeamount()"></input>
+<label for="price">Daily rate:</label>
+<input id="price" name="price" type="number" onfocus="this.value=''" value="Juan Del Cruz" oninput="computeamount()"></input>
+<!--<label for="amount">Gross Pay:</label>
+<input id="amount" name="amount" type="number" readonly></input>-->
+<label for="ddct">Deduction Amount:</label>
+<input id="ddct" name="ddct" type="number" onfocus="this.value=''" value="Juan Del Cruz" oninput="computeamount()"></input>
+<!--<label for="pay">Net Pay:</label>
+<input id="pay" name="amount" type="pay" readonly></input>-->
+<button onclick="addtocart()" >Add to Cart</button>
+<br>
+<label for="delitem">Delete Item:</label>
+<input id="delitem" name="delitem" type="number" ></input>
+<button onclick="deleteitem()" >Delete</button>  
+<div class="guava">
+  <br>
+  
+<p id="cart"></p>
+</div>
+</div>
+</div>
+
+</div>
+<script>
+
+
+    // Initialize cart      
+    function initcart(){
+        cart=[];
+        document.getElementById("items").value=cart.length;
+        document.getElementById("cart").innerHTML="";
+
+            
+    }
+
+    // Add item to cart
+    function addtocart(){
+         
+         var cartitem = {
+             "item": "1",
+             "price": 0,
+             "qty": 1,
+             "ddct":0,
+            "itemamount" : function itemamount(){
+                 return Math.round(this.price*this.qty*100)/100;  
+               },
+            "apple" : function apple(){
+              return Math.round((this.price*this.qty)-this.ddct);
+            }
+            };
+
+          cartitem.item=document.getElementById("itemdesc").value;
+          cartitem.qty=document.getElementById("qty").value;
+          cartitem.price=document.getElementById("price").value;
+          cartitem.ddct=document.getElementById("ddct").value;
+
+          console.log(cartitem.item);
+          console.log(cartitem.qty);
+          console.log(cartitem.price);
+          console.log(cartitem.ddct);
+
+
+           cart.push(cartitem);
+          //cart[cart.length]=cartitem;
+
+
+
+          showcart();
+
+    }
+
+    // Compute Amount per Item
+    function computeamount() {
+    var q,p,j;
+    q = document.getElementById("qty").value*1;
+    p = document.getElementById("price").value*1;
+    j = document.getElementById("ddct").value*1;
+
+    a = Math.round(q*p*100)/100;  // rounds off to 2 decimal places
+    b = Math.round(((q*p)-j)*100)/100;
+
+    console.log(a);
+    console.log(b);
+
+    document.getElementById("amount").value=a;
+    document.getElementById("pay").value=b;
+        
+    }    
+    
+    // Delete item from chart
+    function deleteitem(){
+        var todelete;
+        var itemno;
+
+        itemno=document.getElementById("delitem").value;
+
+        todelete=confirm("Delete item no. "+itemno+"?");
+
+        if (todelete) {
+
+             cart.splice(itemno-1,1);
+             document.getElementById("delitem").value=cart.length;
+             showcart();   
+        }
+
+    }
+
+    // Show the contents of the cart
+    function showcart(){
+
+        var i,l,carttext,totalamount,ln;
+        var theader,tbody,tb,tfooter;
+
+    
+        // Generate table header;
+        theader ="<thead>";
+        theader+="<tr>";
+        theader+="<th>No.</th>";
+        theader+='<th>Emloyee Name</th>';
+        theader+="<th>Days Worked</th>";
+        theader+='<th>Daily Rate</th>';
+        theader+="<th>Gross Pay</th>";
+        theader+="<th>Deduction Amount</th>";
+        theader+="<th>Net Pay</th>";
+        theader+="</tr>";
+        theader+="</thead>";
+        
+        // Generate Table Body
+        l = cart.length;
+      
+        
+      //  for (i=0,totalamount=0,carttext="",tbody='<tbody id="cart">';i<l;i++){
+        for (i=0,totalamount=0,carttext="",tbody='';i<l;i++){
+            ln=i+1;    
+            tbody += "<tr>"
+                +'<td>'+ln+' </td>'
+                +'<td>'+cart[i].item+' </td>'
+                +'<td style="text-align:right">'+cart[i].qty+'</td>'
+                +'<td style="text-align:right">'+cart[i].price+'</td>'
+                +'<td style="text-align:right">'+cart[i].itemamount()+'</td>'
+                +'<td style="text-align:right">'+cart[i].ddct+'</td>'
+                +'<td style="text-align:right">'+cart[i].apple()+'</td>'
+                +"</tr>";
+                       
+            totalamount+=cart[i].itemamount();
+        
+
+        }
+
+
+
+       console.log(theader+tbody+tfooter);
+        document.getElementById("cart").innerHTML=
+           '<table>'+theader+tbody+tfooter+'</table>';
+
+
+    }
+  
+// Global variable
+var cart = []; 
+
+</script>
+</body>
+</html>

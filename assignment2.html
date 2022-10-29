@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Income Tax Calculator</title>
+    <link rel="stylesheet" href="ass2.css">
+    <link rel="stylesheet" href="asstwo.css">
+    <style>
+        .container{
+      width: 550px;
+    }
+    </style>
+
+</head>
+<body>
+    <div class="return"><button onclick="myfunction()" class="return">
+        <b><a href="frontpage.html" style="text-decoration: none;">Return Home</a></b>
+    </button></div>
+    
+    <div class="border">
+        <div class="but">
+            <div class="container">
+                <div>
+                <h1>Income Tax Calculator</h1>
+                <br><br>
+                <label for="income" style="color:white">Taxable income</label>
+                    <input type="number" id="income" onkeyup="MtToft()" onfocus="this.value=''" value="0"><br><br>
+                    <label for="tax" style="color:white">Income Tax</label>
+                    <input type="number" id="tax" onfocus="this.value=''" value="0" disabled><br><br>
+                  
+                </div>
+            </div>
+            <br>
+            <br>
+            
+        </div>
+    </div>
+    
+</body>
+<script>
+    function MtToft()
+    {
+        var income = document.getElementById("income").value*1;
+        var tax = document.getElementById("tax").value*1;
+
+        if (income < 250000){
+            var output = "0";
+
+        } else if (income > 250000 && income < 400000){
+            var output = (income-250000)*.20;
+
+        }  else if (income > 400000 && income < 800000){
+            var output = (30000+(income-400000)*.25);
+
+        } else if (income > 800000 && income < 2000000){
+            var output = (130000+(income-800000)*.30);
+
+        } else if (income > 2000000 && income < 8000,000){
+            var output = (490000+(income-2000000)*.32);
+
+        } else {
+            var output = (2410000+(income-8000000)*.35);
+        }
+
+        document.getElementById("tax").value=output;
+    }
+</script>
+
+
+</html>

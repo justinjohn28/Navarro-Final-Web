@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Factorial</title>
+    <link rel="stylesheet" href="one.css">
+    <link rel="stylesheet" href="1.css">
+    <style>
+        .container{
+      width: 550px;
+    }
+    </style>
+</head>
+
+<body>
+    <div class="return"><button onclick="myfunction()" class="return">
+        <b><a href="frontpage.html" style="text-decoration: none;">Return Home</a></b>
+    </button></div>
+    <div class="border">
+        <div class="but" style="float:left ;">
+            <div class="container">
+                <div>
+                <h1>Factorial</h1>
+                <label for="ndigit" style="color:white">n!:</label>
+                <input type="number" id="ndigit" onkeyup="fct()" onfocus="this.value=''" value="0">
+                <br>
+                <br>
+                <label for="disp" style="color:white">Factorial</label>
+                <input type="number" id="disp" onfocus="this.value=''" value="1" disabled>
+                </div>
+                </div>
+            <br><br>
+            
+        </div>
+    </div>
+</body>
+
+<script>
+    function fct(){
+        var ndigit = document.getElementById("ndigit").value*1;
+        var disp = document.getElementById("disp").value*1;
+        var fac = 1;
+        var i = 1;
+
+        while (i <= ndigit){
+            fac*=i;
+            i++;
+        }
+        document.getElementById("disp").value=fac;
+    }
+</script>
+
+</html>
+
+
+
